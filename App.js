@@ -1,20 +1,32 @@
-import React, { useState } from "react";
-import { View, StyleSheet, FlatList, Alert } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, FlatList, Alert, AsyncStorage } from "react-native";
 
 import Header from "./components/Header";
 import ListItem from "./components/ListItem";
 import AddItem from "./components/AddItem";
 
 // TODO: safe area usage
-// TODO: localstorage
+// TODO: list is empty
 
 const App = () => {
-  const [items, setItems] = useState([
-    { id: `${Math.random()}`, text: "Milk" },
-    { id: `${Math.random()}`, text: "Eggs" },
-    { id: `${Math.random()}`, text: "Bread" },
-    { id: `${Math.random()}`, text: "Juice" },
-  ]);
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    AsyncStorage.getItem("items").then((items) => {
+      if (!items) {
+        return;
+      }
+      const itemsArray = JSON.parse(items);
+      if (!Array.isArray(itemsArray)) {
+        return;
+      }
+      setItems(itemsArray);
+    });
+  }, []);
+
+  useEffect(() => {
+    AsyncStorage.setItem("items", JSON.stringify(items));
+  }, [items]);
 
   const deleteItem = (id) => {
     setItems((prevItems) => {
