@@ -5,13 +5,11 @@
     "name": "shoppinglist",
     "slug": "shoppinglist",
     "version": "1.0.0",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "platforms": ["ios", "android", "web"],
+    "assetBundlePatterns": ["**/*"],
+    "android": {
+      "package": "com.s_xync.shoppinglist",
+      "versionCode": 1
+    }
   }
 }
