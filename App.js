@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, FlatList, Alert, AsyncStorage } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Alert,
+  AsyncStorage,
+} from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
 
 import Header from "./components/Header";
 import ListItem from "./components/ListItem";
 import AddItem from "./components/AddItem";
 
 // TODO: safe area usage
-// TODO: list is empty
 
 const App = () => {
   const [items, setItems] = useState([]);
@@ -44,12 +51,22 @@ const App = () => {
     });
   };
 
+  const listEmptyComponent = () => (
+    <View style={styles.emptyListView}>
+      <FontAwesome name="list-ul" style={styles.emptyListIcon} />
+      <Text style={styles.emptyListText}>
+        It is very empty here. Add some items to your shopping list.
+      </Text>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
       <Header title="Shopping List" />
       <AddItem addItem={addItem} />
       <FlatList
         data={items}
+        ListEmptyComponent={listEmptyComponent}
         renderItem={({ item }) => (
           <ListItem item={item} deleteItem={deleteItem} />
         )}
@@ -62,6 +79,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 60,
+  },
+  emptyListView: {
+    alignItems: "center",
+  },
+  emptyListIcon: {
+    paddingTop: 30,
+    fontSize: 100,
+    opacity: 0.1,
+  },
+  emptyListText: {
+    textAlign: "center",
+    padding: 30,
+    fontSize: 20,
+    opacity: 0.3,
   },
 });
 
