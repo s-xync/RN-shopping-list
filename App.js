@@ -6,6 +6,7 @@ import {
   FlatList,
   Alert,
   AsyncStorage,
+  SafeAreaView,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
@@ -61,7 +62,7 @@ const App = () => {
   );
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView>
       <Header title="Shopping List" />
       <AddItem addItem={addItem} />
       <FlatList
@@ -71,15 +72,11 @@ const App = () => {
           <ListItem item={item} deleteItem={deleteItem} />
         )}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 60,
-  },
   emptyListView: {
     alignItems: "center",
   },
