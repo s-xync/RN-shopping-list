@@ -71,6 +71,9 @@ const App = () => {
         renderItem={({ item }) => (
           <ListItem item={item} deleteItem={deleteItem} />
         )}
+        contentContainerStyle={{
+          flexGrow: 1,
+        }}
       />
     </SafeAreaView>
   );
